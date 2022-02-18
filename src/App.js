@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import LampControl from "./components/LampControl";
+import { useSelector } from "react-redux";
+import { selectLamps } from "./store/smarthome/selector";
+import RadioControl from "./components/RadioControl";
+import ThermostatControl from "./components/ThermostatControl";
+import { selectPUConsumption } from "./store/smarthome/selector";
 function App() {
+  const lamps = useSelector(selectLamps);
+  const PUConsumption = useSelector(selectPUConsumption);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Smart Home</h1>
+      <p>Total PU consumption: {PUConsumption}</p>
+      {lamps.map((lamp, i) => (
+        <LampControl key={i} lamp={lamp} />
+      ))}
+      <RadioControl />
+      <ThermostatControl />
     </div>
   );
 }
